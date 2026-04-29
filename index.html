@@ -1,0 +1,1291 @@
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║           ИНСТРУКЦИЯ ПО РЕДАКТИРОВАНИЮ САЙТА                ║
+╠══════════════════════════════════════════════════════════════╣
+║  1. ТЕКСТЫ: замените всё в [квадратных скобках] на свои     ║
+║  2. TELEGRAM: Ctrl+H → замените t.me/mfutikova на свой ник  ║
+║  3. ВИДЕО: в <iframe src="..."> оставьте только ID ролика   ║
+║     Формат: /embed/ХХХХХХ (без ?si= и других параметров!)   ║
+║  4. ФОТО в герое: найдите "Фото преподавателя MaffinJazz"   ║
+║     Замените src="" на src="файл.jpg" рядом с index.html    ║
+║  5. ФОТО в карусели: найдите "photo1.jpg"..."photo6.jpg"    ║
+║     Замените src="" на реальные файлы                        ║
+║  6. ФОТО преподавателя: найдите "Маргарита Футикова — пр..."║
+║     Замените src="" на src="файл.jpg"                        ║
+║  7. ЦВЕТА: в :root замените --c-red, --c-teal, --c-yellow   ║
+║  8. ТЕЛЕФОН: найдите tel:+972 и замените на свой            ║
+║  9. КНОПКИ TELEGRAM помечены <!-- TG BTN --> — удалите блок ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaffinJazz — Танцевальная студия</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,700;1,900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── DESIGN TOKENS ─────────────────────────────── */
+    :root {
+      --c-red:    #C8382A;
+      --c-teal:   #1D5C4E;
+      --c-yellow: #F5C842;
+      --c-cream:  #F7F3EC;
+      --c-dark:   #141210;
+    }
+
+    /* ─── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Barlow', sans-serif;
+      background: var(--c-cream);
+      color: var(--c-dark);
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; }
+
+    /* ─── TYPOGRAPHY ────────────────────────────────── */
+    .dc { font-family: 'Barlow Condensed', sans-serif; }
+
+    .sec-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--c-red);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .sec-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.92;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      margin: 0 0 2rem;
+    }
+
+    /* ─── BUTTONS ───────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      transition: background 0.2s, color 0.2s, transform 0.15s;
+      padding: 0.85rem 2.2rem;
+      line-height: 1;
+      text-align: center;
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-red  { background: var(--c-red); color: #fff; }
+    .btn-red:hover { background: #a82c20; }
+
+    .btn-teal { background: var(--c-teal); color: #fff; }
+    .btn-teal:hover { background: #174d41; }
+
+    .btn-yellow { background: var(--c-yellow); color: var(--c-dark); }
+    .btn-yellow:hover { background: #ddb22a; }
+
+    .btn-outline-red {
+      background: transparent;
+      color: var(--c-red);
+      border: 3px solid var(--c-red);
+    }
+    .btn-outline-red:hover { background: var(--c-red); color: #fff; }
+
+    .btn-outline-light {
+      background: transparent;
+      color: var(--c-cream);
+      border: 3px solid var(--c-cream);
+    }
+    .btn-outline-light:hover { background: var(--c-cream); color: var(--c-dark); }
+
+    .btn-block { display: block; width: 100%; }
+
+    /* ─── NAVIGATION ────────────────────────────────── */
+    #site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--c-dark);
+      border-bottom: 3px solid var(--c-red);
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .nav-logo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.6rem;
+      color: var(--c-cream);
+      flex-shrink: 0;
+    }
+    .nav-logo em { color: var(--c-red); font-style: inherit; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--c-yellow); }
+
+    #hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+    #hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--c-cream);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    #mobile-menu {
+      display: none;
+      flex-direction: column;
+      background: var(--c-dark);
+      border-top: 1px solid #2a2a2a;
+    }
+    #mobile-menu.is-open { display: flex; }
+    #mobile-menu a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      padding: 0.85rem 1.5rem;
+      border-bottom: 1px solid #222;
+      transition: background 0.2s, color 0.2s;
+    }
+    #mobile-menu a:hover { background: #1a1a1a; color: var(--c-yellow); }
+
+    @media (max-width: 1100px) { .nav-links { display: none; } #hamburger { display: flex; } }
+    @media (min-width: 1101px) { #hamburger { display: none; } }
+
+    /* ─── HERO ──────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--c-dark);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 64px;
+      /* НЕ ставим overflow:hidden — он обрезал бегущую строку по ширине контейнера */
+    }
+    /* Фоновый текст обрезается внутри своей обёртки, не затрагивая marquee */
+    .hero-bg-clip {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .hero-bg-text {
+      position: absolute;
+      bottom: -20px; left: 0;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(7rem, 22vw, 18rem);
+      text-transform: uppercase;
+      line-height: 1;
+      color: rgba(29,92,78,0.13);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-glow {
+      position: absolute;
+      right: -100px; bottom: -100px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(29,92,78,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--c-yellow);
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      text-transform: uppercase;
+      color: var(--c-cream);
+      font-size: clamp(5rem, 14vw, 10rem);
+      line-height: 0.88;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { color: var(--c-red); font-style: inherit; }
+    .hero-sub {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: #888;
+      margin-bottom: 2.5rem;
+      line-height: 1.4;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .hero-img-col { position: relative; }
+    /* Контейнер фото — соотношение 3:4, обрезает содержимое */
+    .hero-photo {
+      position: relative;
+      aspect-ratio: 3/4;
+      max-width: 340px;
+      margin: 0 auto;
+      overflow: hidden;
+      background: linear-gradient(160deg, var(--c-teal), #0e2e24);
+    }
+    /*
+      ВСТАВКА ФОТО В ГЕРОЙ:
+      Замените src="" на src="ваш_файл.jpg"
+      Положите файл рядом с index.html
+      Рекомендуемый формат: вертикальное фото (3:4), минимум 700×930px
+    */
+    .hero-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* Заглушка — скрывается автоматически когда фото загрузилось */
+    .hero-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.28);
+      text-align: center; gap: 0.5rem;
+      pointer-events: none;
+    }
+    .hero-photo-placeholder .ph-icon { font-size: 3.5rem; }
+    .hero-photo-placeholder p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.5;
+    }
+    .hero-deco-box {
+      position: absolute;
+      bottom: -16px; right: -16px;
+      width: 160px; height: 160px;
+      border: 4px solid var(--c-yellow);
+      pointer-events: none;
+    }
+    .hero-deco-dot {
+      position: absolute;
+      top: 24px; left: -16px;
+      width: 44px; height: 44px;
+      background: var(--c-red);
+      border-radius: 50%;
+    }
+
+    /* ─── MARQUEE ───────────────────────────────────── */
+    .marquee-wrap {
+      /* Выбиваемся из flex-потока hero и занимаем всю ширину вьюпорта */
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #111;
+      border-top: 2px solid #1e1e1e;
+      overflow: hidden;
+      padding: 0.85rem 0;
+    }
+    /* Два одинаковых набора спанов — анимация сдвигает ровно на половину ширины трека */
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee-scroll 30s linear infinite;
+      will-change: transform;
+    }
+    .marquee-track span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      padding: 0 1.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    @keyframes marquee-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── LAYOUT HELPERS ────────────────────────────── */
+    .section { padding: 6rem 1.5rem; }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .bg-dark   { background: var(--c-dark); }
+    .bg-teal   { background: var(--c-teal); }
+    .bg-red    { background: var(--c-red); }
+    .bg-cream  { background: var(--c-cream); }
+
+    /* ─── FEATURE CARDS ─────────────────────────────── */
+    .feature-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 2.5rem; }
+    @media (max-width: 600px) { .feature-cards { grid-template-columns: 1fr; } }
+    .feature-card {
+      border: 2px solid #e0dbd3;
+      padding: 1.5rem;
+      background: #fff;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--c-teal); transform: translateY(-4px); }
+    .fc-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .fc-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .fc-desc { font-size: 0.88rem; color: #666; line-height: 1.55; }
+
+    /* ─── VIDEO EMBED ───────────────────────────────── */
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border: 4px solid var(--c-dark);
+      overflow: hidden;
+      background: #0a1a15;
+    }
+    .video-wrap iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .video-ph {
+      position: absolute; top:0; left:0; width:100%; height:100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: linear-gradient(135deg,#1D5C4E,#0e2e24);
+      color: rgba(255,255,255,0.4);
+      text-align: center; gap: 0.5rem;
+    }
+    .video-ph .play { font-size: 3rem; }
+    .video-ph p { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.78rem; letter-spacing:0.18em; text-transform:uppercase; }
+    /* Карточка-ссылка на YouTube (когда встраивание отключено владельцем) */
+    .video-link-card {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      background: linear-gradient(135deg, #0e2e24, #1a4535);
+      color: var(--c-cream);
+      text-decoration: none;
+      transition: background 0.2s;
+      padding: 2rem;
+      text-align: center;
+    }
+    .video-link-card:hover { background: linear-gradient(135deg, #1D5C4E, #0e2e24); }
+    .vlc-icon {
+      font-size: 3.5rem;
+      width: 72px; height: 72px;
+      border: 3px solid var(--c-yellow);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--c-yellow);
+      font-size: 1.8rem;
+      padding-left: 4px; /* оптическая корректировка треугольника */
+      flex-shrink: 0;
+    }
+    .vlc-text strong {
+      display: block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.3rem;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--c-cream);
+    }
+    .vlc-text span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; color: var(--c-yellow);
+      letter-spacing: 0.08em;
+    }
+    .vlc-note {
+      font-size: 0.72rem; color: rgba(255,255,255,0.4);
+      line-height: 1.5; max-width: 280px;
+    }
+
+    /* ─── CAROUSEL ──────────────────────────────────── */
+    .carousel {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 0.75rem;
+    }
+    .carousel::-webkit-scrollbar { height: 4px; }
+    .carousel::-webkit-scrollbar-thumb { background: var(--c-yellow); border-radius: 2px; }
+    .carousel-item { flex: 0 0 calc(33.333% - 0.68rem); scroll-snap-align: start; }
+    @media (max-width: 640px) { .carousel-item { flex: 0 0 78%; } }
+
+    /* Слот фото в карусели */
+    .carousel-slot {
+      aspect-ratio: 1;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #1a1a2e, #2a2a40);
+    }
+    .carousel-slot img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Заглушка — видна пока нет фото */
+    .carousel-ph {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.35);
+      text-align: center; gap: 0.4rem;
+    }
+    .carousel-ph .ci { font-size: 2.5rem; }
+    .carousel-ph p { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; }
+
+    /* ─── DARK FEATURES ─────────────────────────────── */
+    .dark-features { margin-bottom: 2.5rem; }
+    .dark-feature { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.5rem; }
+    .df-icon { font-size: 1.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .df-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.05rem;
+      text-transform: uppercase; color: var(--c-cream); margin-bottom: 0.2rem;
+    }
+    .df-desc { font-size: 0.88rem; color: #888; line-height: 1.5; }
+
+    /* ─── STEPS ─────────────────────────────────────── */
+    .step-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
+    @media (max-width: 900px) { .step-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 540px)  { .step-grid { grid-template-columns: 1fr; } }
+    .step-card { position: relative; padding: 1.75rem 1.25rem 1.5rem; border-left: 4px solid var(--c-yellow); }
+    .step-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 5rem; line-height: 1;
+      color: var(--c-yellow); opacity: 0.18;
+      position: absolute; top: -8px; left: -4px;
+      pointer-events: none;
+    }
+    .step-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 1.1rem; text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+    .step-desc { font-size: 0.88rem; color: #555; line-height: 1.55; }
+
+    /* ─── TEACHER ───────────────────────────────────── */
+    .teacher-layout { display: flex; flex-direction: row; gap: 3rem; align-items: flex-start; }
+    @media (max-width: 768px) { .teacher-layout { flex-direction: column; align-items: center; text-align: center; } }
+    .teacher-photo {
+      flex-shrink: 0;
+      width: 220px; height: 220px;
+      border-radius: 1rem;
+      overflow: hidden;
+      position: relative;
+      background: linear-gradient(135deg,#0e3329,#1a5040);
+    }
+    /* Фото преподавателя: замените src="" на src="имя_файла.jpg" */
+    .teacher-photo img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .teacher-photo-ph {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.3); text-align: center; gap: 0.4rem;
+    }
+    .teacher-photo-ph .tp-icon { font-size: 4rem; }
+    .teacher-photo-ph p { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; line-height:1.4; }
+    .teacher-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-style: italic;
+      font-size: clamp(2.2rem,5vw,3.5rem);
+      text-transform: uppercase; color: var(--c-cream);
+      line-height: 1; margin: 0.5rem 0 0.25rem;
+    }
+    .teacher-role {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.78rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 1.25rem;
+    }
+    .teacher-bio { font-size: 0.95rem; color: rgba(255,255,255,0.72); line-height: 1.7; margin-bottom: 0.75rem; }
+    .teacher-sub { font-size: 0.85rem; color: rgba(255,255,255,0.38); margin-bottom: 0; }
+    .quote-divider { border: none; border-top: 2px solid rgba(255,255,255,0.15); margin: 1.75rem 0; }
+    .blockquote {
+      position: relative; padding-left: 1.25rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-style: italic; font-weight: 700;
+      font-size: clamp(1.3rem,3.5vw,2rem);
+      line-height: 1.3; color: var(--c-yellow);
+    }
+    .blockquote::before {
+      content: '"';
+      position: absolute; left: 0; top: -0.3em;
+      font-size: 3.5rem; line-height: 1;
+      color: rgba(245,200,66,0.45); font-style: normal;
+    }
+
+    /* ─── SCHEDULE ──────────────────────────────────── */
+    .sched-wrap { overflow-x: auto; border: 3px solid var(--c-dark); margin-top: 2rem; }
+    .sched-table { width: 100%; min-width: 540px; border-collapse: collapse; }
+    .sched-table th {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 0.8rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      background: var(--c-dark); color: var(--c-yellow);
+      padding: 0.85rem 1.1rem; text-align: left;
+    }
+    .sched-table td { padding: 0.8rem 1.1rem; font-size: 0.92rem; border-bottom: 1px solid #e0dbd3; }
+    .sched-table tr:last-child td { border-bottom: none; }
+    .sched-table tbody tr:nth-child(even) td { background: #f0ece4; }
+    .tag {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      background: var(--c-teal); color: #fff;
+    }
+    .tag-red { background: var(--c-red); }
+
+    /* ─── PRICE CARDS ───────────────────────────────── */
+    .price-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .price-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 480px)  { .price-grid { grid-template-columns: 1fr; } }
+    .price-card {
+      background: #fff;
+      border: 3px solid var(--c-dark);
+      padding: 2rem 1.5rem;
+      position: relative;
+      display: flex; flex-direction: column;
+      transition: transform 0.2s;
+    }
+    .price-card:hover { transform: translateY(-6px); }
+    .price-card.featured { background: var(--c-teal); border-color: var(--c-teal); color: var(--c-cream); }
+    .price-badge {
+      position: absolute; top: -2px; right: -2px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900; font-size: 0.68rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      background: var(--c-yellow); color: var(--c-dark);
+    }
+    .price-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .price-name { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.1rem; text-transform:uppercase; margin-bottom:0.5rem; }
+    .price-desc { font-size: 0.85rem; line-height: 1.5; flex-grow: 1; margin-bottom: 1.25rem; color: #666; }
+    .price-card.featured .price-desc { color: rgba(255,255,255,0.72); }
+    .price-amount { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2.8rem; line-height:1; margin-bottom:0.2rem; color: var(--c-teal); }
+    .price-card.featured .price-amount { color: var(--c-yellow); }
+    .price-per { font-size: 0.75rem; color: #999; margin-bottom: 1.5rem; }
+    .price-card.featured .price-per { color: rgba(255,255,255,0.4); }
+
+    /* ─── CTA BANNER ────────────────────────────────── */
+    .cta-banner { background: var(--c-red); text-align: center; padding: 5rem 1.5rem; }
+    .cta-eye { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.8rem; letter-spacing:0.3em; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:1rem; }
+    .cta-title { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; text-transform:uppercase; color:#fff; font-size:clamp(2.4rem,7vw,5rem); line-height:0.92; margin-bottom:2.5rem; }
+
+    /* ─── CONTACTS ──────────────────────────────────── */
+    .contacts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2.5rem; margin-top: 3rem; }
+    @media (max-width: 900px) { .contacts-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .contacts-grid { grid-template-columns: 1fr; } }
+    .contacts-label { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.76rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--c-yellow); margin-bottom:1rem; display:block; }
+    .contacts-text { font-size: 1.05rem; color: var(--c-cream); margin-bottom: 0.25rem; }
+    .contacts-sub  { font-size: 1.05rem; color: #666; margin-bottom: 1.75rem; }
+    .phone-link { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.5rem; color:var(--c-cream); transition:color 0.2s; }
+    .phone-link:hover { color: var(--c-yellow); }
+
+    .social-row { display: flex; flex-direction: column; gap: 1rem; }
+    .social-link { display:flex; align-items:center; gap:0.85rem; color:var(--c-cream); transition:color 0.2s; }
+    .social-link:hover { color: var(--c-yellow); }
+    .social-icon-box {
+      width: 42px; height: 42px;
+      border: 2px solid #3a3a3a;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: border-color 0.2s, background 0.2s;
+    }
+    .social-link:hover .social-icon-box { border-color: var(--c-yellow); background: var(--c-yellow); }
+    .social-icon-box svg { fill: var(--c-cream); transition: fill 0.2s; }
+    .social-link:hover .social-icon-box svg { fill: var(--c-dark); }
+    .social-handle { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.88rem; letter-spacing:0.1em; text-transform:uppercase; }
+
+    .map-ph {
+      width: 100%; height: 160px;
+      background: #1a1815; border: 2px solid #2a2a2a;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      color: #555; text-align: center; gap: 0.4rem; margin-bottom: 1.5rem;
+    }
+    .map-ph .map-icon { font-size: 2rem; }
+    .map-ph p { font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; }
+
+    /* ─── FOOTER ────────────────────────────────────── */
+    .site-footer { background: var(--c-dark); border-top: 1px solid #1e1e1e; padding: 1.75rem 1.5rem; }
+    .footer-inner { max-width:1280px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.75rem; }
+    .footer-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-style:italic; font-size:1.4rem; color:var(--c-cream); }
+    .footer-logo em { color: var(--c-red); font-style: inherit; }
+    .footer-copy { font-size: 0.82rem; color: #444; }
+
+    /* ─── ANIMATIONS ────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    /* Hero — start immediately */
+    .h-anim { opacity: 0; animation: fadeUp 0.65s ease forwards; }
+    .h-d0 { animation-delay: 0.1s; }
+    .h-d1 { animation-delay: 0.3s; }
+    .h-d2 { animation-delay: 0.5s; }
+    .h-d3 { animation-delay: 0.7s; }
+    /* Scroll reveal */
+    .reveal { opacity: 0; transition: opacity 0s; }
+    .reveal.visible { animation: fadeUp 0.55s ease forwards; }
+    .rv-d1.visible { animation-delay: 0.08s; }
+    .rv-d2.visible { animation-delay: 0.16s; }
+    .rv-d3.visible { animation-delay: 0.24s; }
+    .rv-d4.visible { animation-delay: 0.32s; }
+
+    /* ─── RESPONSIVE GRIDS ──────────────────────────── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .two-col-rev { display: grid; grid-template-columns: 2fr 3fr; gap: 4rem; align-items: start; }
+    @media (max-width: 768px) {
+      .two-col, .two-col-rev { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-content { grid-template-columns: 1fr; }
+      .hero-img-col { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ═══ NAVIGATION ═══════════════════════════════════════ -->
+<header id="site-nav">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Maffin<em>Jazz</em></a>
+
+    <nav class="nav-links">
+      <a href="#lindy">Линди-хоп</a>
+      <a href="#solo">Соло-джаз</a>
+      <a href="#process">Занятия</a>
+      <a href="#teacher">Преподаватель</a>
+      <a href="#schedule">Расписание</a>
+      <a href="#prices">Услуги</a>
+      <a href="#contacts">Контакты</a>
+      <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-red" style="font-size:0.78rem;padding:0.55rem 1.1rem;">✈ Записаться</a>
+    </nav>
+
+    <button id="hamburger" aria-label="Меню">
+      <span id="hb1"></span>
+      <span id="hb2"></span>
+      <span id="hb3"></span>
+    </button>
+  </div>
+  <div id="mobile-menu">
+    <a href="#lindy"    onclick="closeMob()">Линди-хоп</a>
+    <a href="#solo"     onclick="closeMob()">Соло-джаз</a>
+    <a href="#process"  onclick="closeMob()">Как проходят занятия</a>
+    <a href="#teacher"  onclick="closeMob()">О преподавателе</a>
+    <a href="#schedule" onclick="closeMob()">Расписание</a>
+    <a href="#prices"   onclick="closeMob()">Услуги и цены</a>
+    <a href="#contacts" onclick="closeMob()">Контакты</a>
+    <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" style="color:var(--c-yellow);">✈ Написать в Telegram</a>
+  </div>
+</header>
+
+
+<!-- ═══ HERO ══════════════════════════════════════════════ -->
+<section id="hero">
+  <!-- Декоративный фон обрезается своей обёрткой, не влияет на marquee -->
+  <div class="hero-bg-clip">
+    <div class="hero-bg-text">JAZZ&nbsp;DANCE</div>
+  </div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div>
+      <p class="hero-eyebrow h-anim h-d0">▸ Танцевальная студия · Тель-Авив</p>
+      <h1 class="hero-title h-anim h-d1">Maffin<em>Jazz</em></h1>
+      <p class="hero-sub h-anim h-d2">«Танцуй так,<br>как будто видит только один»</p>
+      <div class="hero-cta h-anim h-d3">
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-red" style="font-size:1.05rem;">✈ Написать в Telegram</a>
+        <a href="#lindy" class="btn btn-outline-light" style="font-size:1.05rem;">Узнать больше ↓</a>
+      </div>
+    </div>
+    <div class="hero-img-col">
+      <div class="hero-photo">
+        <!--
+        ╔═══════════════════════════════════════════════╗
+        ║  КАК ВСТАВИТЬ ФОТО В ГЕРОЯ:                   ║
+        ║  1. Добавьте src="имя_файла.jpg"              ║
+        ║  2. Положите файл рядом с index.html          ║
+        ║  Пример: src="margo.jpg"                      ║
+        ║  Формат: вертикальное, минимум 700×930px      ║
+        ╚═══════════════════════════════════════════════╝
+        -->
+        <img src="profile.jpg" alt="Фото преподавателя MaffinJazz"
+             onerror="this.style.display='none'"
+             onload="this.nextElementSibling.style.display='none'">
+        <div class="hero-photo-placeholder">
+          <div class="ph-icon">💃</div>
+          <p>Вставьте фото<br><span style="color:var(--c-yellow);font-size:0.62rem;">src="profile.jpg"</span></p>
+        </div>
+      </div>
+      <div class="hero-deco-box"></div>
+      <div class="hero-deco-dot"></div>
+    </div>
+  </div>
+  <!-- Бегущая строка — вне hero-content, занимает 100vw -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- Первая половина (оригинал) -->
+      <span style="color:var(--c-cream);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+      <!-- Вторая половина (точная копия — нужна для бесшовного зацикливания) -->
+      <span style="color:var(--c-cream);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Линди-Хоп</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">Соло-Джаз</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-yellow);">Тель-Авив</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-cream);">MaffinJazz</span><span style="color:var(--c-yellow);">✦</span>
+      <span style="color:var(--c-red);">Свинг</span><span style="color:var(--c-yellow);">✦</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ LINDY HOP ══════════════════════════════════════════ -->
+<section id="lindy" class="section bg-cream">
+  <div class="container">
+    <div class="two-col">
+      <div>
+        <span class="sec-label reveal">Направление 01</span>
+        <h2 class="sec-title reveal">Линди-<br><span style="color:var(--c-red);">Хоп</span></h2>
+        <p style="font-size:1.02rem;line-height:1.7;color:#5a5550;margin-bottom:2rem;" class="reveal">
+          Линди-хоп: Безумный драйв и озорство
+Танец, популярность которого пришлась на 20-30ые годы прошлого века, созданный из сплава свободы, энергии и глубоких африканских корней.
+В чем фишка: Это дух озорства. Здесь можно и нужно хулиганить, импровизировать и дурачиться.
+Линди хоп - это когда вы вдвоем создаете контролируемый хаос на паркете. И главное - это никому не наносит вред - только лишь удовольствие!
+          <br><em style="color:#aaa;">Мы не просто учим связки, а разбираем механику баланса и инерции, чтобы танец был естественным и легким. Я даю глубокое понимание контекста и «словарь» движений, превращая осознанность в фундамент для твоего личного драйва. Моя задача - создать пространство поддержки, где ты сможешь уверенно хулиганить, ошибаться и превращать теорию в тот самый озорной хаос на паркете.</em>
+        </p>
+        <div class="feature-cards">
+          <div class="feature-card reveal rv-d1">
+            <div class="fc-icon">🤝</div>
+            <div class="fc-title">Парный<br>танец</div>
+            <div class="fc-desc">Учитесь вести и следовать — развивает чуткость к партнёру</div>
+          </div>
+          <div class="feature-card reveal rv-d2">
+            <div class="fc-icon">🎷</div>
+            <div class="fc-title">Любимая<br>музыка</div>
+            <div class="fc-desc">Танцуем под классический свинг и модерн джаз</div>
+          </div>
+          <div class="feature-card reveal rv-d3">
+            <div class="fc-icon">🌍</div>
+            <div class="fc-title">Мировые<br>фестивали</div>
+            <div class="fc-desc">Вас поймут танцоры в любом городе планеты</div>
+          </div>
+        </div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-red reveal">✈ Записаться на Линди-хоп</a>
+      </div>
+      <div>
+        <span class="sec-label reveal" style="margin-bottom:1rem;">Смотрите как это выглядит</span>
+        <div class="video-wrap reveal">
+          <!--
+          ╔══════════════════════════════════════════════════════════╗
+          ║  ВИДЕО С YOUTUBE — КАК ВСТАВИТЬ ПРАВИЛЬНО:              ║
+          ║                                                          ║
+          ║  ПРОБЛЕМА: Ошибка 153 = владелец видео ЗАПРЕТИЛ         ║
+          ║  встраивание на сторонних сайтах. Это настройка         ║
+          ║  канала, не баг кода.                                    ║
+          ║                                                          ║
+          ║  РЕШЕНИЕ 1 (рекомендуется):                             ║
+          ║  Зайдите в YouTube Studio → Видео → Изменить →          ║
+          ║  вкладка «Дополнительно» → ✅ «Разрешить встраивание»   ║
+          ║  Затем вставьте ID ниже: src="…/embed/ВАШ_ID"           ║
+          ║                                                          ║
+          ║  РЕШЕНИЕ 2: используйте другое видео с включённым       ║
+          ║  встраиванием (например, видео других студий)            ║
+          ║                                                          ║
+          ║  После разрешения встраивания: замените блок            ║
+          ║  <a class="video-link-card"> на:                        ║
+          ║  <iframe src="/embed/ВАШ_ID"                            ║
+          ║    allow="accelerometer;autoplay;clipboard-write;        ║
+          ║    encrypted-media;gyroscope;picture-in-picture"         ║
+          ║    allowfullscreen style="position:absolute;inset:0;     ║
+          ║    width:100%;height:100%;border:0;"></iframe>           ║
+          ╚══════════════════════════════════════════════════════════╝
+          -->
+          <a class="video-link-card"
+             href="https://www.youtube.com/watch?v=Nx8HZRJZ0GI"
+             target="_blank" rel="noopener">
+            <div class="vlc-icon">▶</div>
+            <div class="vlc-text">
+              <strong>Посмотреть видео</strong>
+              <span>Открыть на YouTube →</span>
+            </div>
+            <div class="vlc-note">Встраивание отключено владельцем видео.<br>Нажмите, чтобы открыть в новой вкладке.</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SOLO JAZZ ══════════════════════════════════════════ -->
+<section id="solo" class="section bg-dark">
+  <div class="container">
+    <div class="two-col-rev">
+      <div>
+        <span class="sec-label reveal" style="color:var(--c-yellow);">Направление 02</span>
+        <h2 class="sec-title reveal" style="color:var(--c-cream);">Соло-<br><span style="color:var(--c-red);">Джаз</span></h2>
+        <p style="font-size:1rem;line-height:1.7;color:#888;margin-bottom:2rem;" class="reveal">
+          Соло-джаз - это легальный способ выгулять своих внутренних бесов под музыку. Это и полноценный отдельный вид танца, и твой базовый «словарь», который через классические рутинки учит тебя не просто двигаться, а по-хорошему хулиганить в одиночку. Мы берем аутентичные связки и добавляем туда щепотку самоиронии чтобы ты мог уверенно выйти на середину круга и зажечь так, будто на тебя никто не смотрит (хотя смотреть будут все!). По сути, это школа осознанного дуракаваляния, где за каждым странным жестом стоит железная техника и осмысленный подход.
+          <br><em style="color:#555;"></em>
+        </p>
+        <div class="dark-features">
+          <div class="dark-feature reveal rv-d1">
+            <div class="df-icon">💃</div>
+            <div>
+              <div class="df-title">Ваше тело — ваш инструмент</div>
+              <div class="df-desc">Никакого партнёра не нужно — приходите и танцуйте</div>
+            </div>
+          </div>
+          <div class="dark-feature reveal rv-d2">
+            <div class="df-icon">🥁</div>
+            <div>
+              <div class="df-title">Музыкальность</div>
+              <div class="df-desc">Учимся слышать ритм и интерпретировать его телом</div>
+            </div>
+          </div>
+          <div class="dark-feature reveal rv-d3">
+            <div class="df-icon">✨</div>
+            <div>
+              <div class="df-title">Характер и стиль</div>
+              <div class="df-desc">Развиваем сценическое присутствие и уверенность</div>
+            </div>
+          </div>
+        </div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-red reveal">✈ Записаться на Соло-джаз</a>
+      </div>
+      <div>
+        <span class="sec-label reveal" style="color:var(--c-yellow);margin-bottom:1rem;display:block;">Фотографии с занятий</span>
+        <!--
+        ╔══════════════════════════════════════════════════════════╗
+        ║  КАК ДОБАВИТЬ ФОТО В КАРУСЕЛЬ:                           ║
+        ║  В каждом .carousel-item замените src="" на src="файл"  ║
+        ║  Положите файлы рядом с index.html                       ║
+        ║  Пример: src="photo1.jpg"                                ║
+        ║  Формат: квадратные или горизонтальные, мин. 600×600px   ║
+        ║  Чтобы добавить/убрать слот — скопируйте/удалите        ║
+        ║  блок <div class="carousel-item">...</div>               ║
+        ╚══════════════════════════════════════════════════════════╝
+        -->
+        <div class="carousel reveal">
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#2d1f3d,#4a2d6b);">
+              <img src="solo1.jpg" alt="Фото с занятий 1" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">🎶</div><p>Фото 1<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo1.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#1a3d2d,#2d6b4a);">
+              <img src="solo2.jpg" alt="Фото с занятий 2" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">💃</div><p>Фото 2<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo2.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#3d1a1a,#6b2d2d);">
+              <img src="solo3.jpg" alt="Фото с занятий 3" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">🎺</div><p>Фото 3<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo3.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#1a2d3d,#2d4a6b);">
+              <img src="solo4.jpg" alt="Фото с занятий 4" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">🎷</div><p>Фото 4<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo4.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#3d3a1a,#6b672d);">
+              <img src="solo5.jpg" alt="Фото с занятий 5" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">🕺</div><p>Фото 5<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo5.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="carousel-slot" style="background:linear-gradient(135deg,#1D5C4E,#0e3329);">
+              <img src="solo6.jpg" alt="Фото с занятий 6" onerror="this.style.display='none'" onload="this.nextElementSibling.style.display='none'">
+              <div class="carousel-ph"><div class="ci">⭐</div><p>Фото 6<br><span style="font-size:0.6rem;opacity:0.6;">src=&quot;photo6.jpg&quot;</span></p></div>
+            </div>
+          </div>
+
+        </div>
+        <p style="font-size:0.78rem;color:#444;margin-top:0.6rem;">← Листайте вправо</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ PROCESS ════════════════════════════════════════════ -->
+<section id="process" class="section bg-cream">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:4rem;">
+      <span class="sec-label reveal" style="display:block;text-align:center;">Структура урока</span>
+      <h2 class="sec-title reveal" style="text-align:center;">Как проходят<br><span style="color:var(--c-teal);">занятия</span></h2>
+    </div>
+    <div class="step-grid">
+      <div class="step-card reveal rv-d1">
+        <div class="step-num">1</div>
+        <div class="step-icon">🔥</div>
+        <div class="step-title">Разминка</div>
+        <div class="step-desc">Тело просыпается — суставы, мышцы, ритм. 10 минут движения, которые настраивают на волну джаза.</div>
+      </div>
+      <div class="step-card reveal rv-d2" style="border-color:var(--c-red);">
+        <div class="step-num" style="color:var(--c-red);">2</div>
+        <div class="step-icon">🧩</div>
+        <div class="step-title">Техника</div>
+        <div class="step-desc">Разбираем движения по косточкам. Новый элемент — медленно, потом в ритме, потом в музыке.</div>
+      </div>
+      <div class="step-card reveal rv-d3" style="border-color:var(--c-teal);">
+        <div class="step-num" style="color:var(--c-teal);">3</div>
+        <div class="step-icon">🎵</div>
+        <div class="step-title">Практика</div>
+        <div class="step-desc">Включаем музыку и танцуем. Импровизация, связки, фристайл — самая живая часть урока.</div>
+      </div>
+      <div class="step-card reveal rv-d4" style="border-color:#bbb;">
+        <div class="step-num" style="color:#ccc;">4</div>
+        <div class="step-icon">🌿</div>
+        <div class="step-title">Завершение</div>
+        <div class="step-desc">Закрепление материала, рекап и вопросы.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ TEACHER ════════════════════════════════════════════ -->
+<section id="teacher" class="section bg-teal">
+  <div class="container">
+    <div class="teacher-layout">
+      <div class="teacher-photo">
+        <!--
+        ╔═══════════════════════════════════════════════════╗
+        ║  КАК ВСТАВИТЬ ФОТО ПРЕПОДАВАТЕЛЯ:                 ║
+        ║  Замените src="" на src="имя_файла.jpg"           ║
+        ║  Положите файл рядом с index.html                 ║
+        ║  Пример: src="margo_teacher.jpg"                  ║
+        ║  Формат: квадратное или вертикальное, мин 440px   ║
+        ╚═══════════════════════════════════════════════════╝
+        -->
+        <img src="face.jpg" alt="Маргарита Футикова — преподаватель MaffinJazz"
+             onerror="this.style.display='none'"
+             onload="this.nextElementSibling.style.display='none'">
+        <div class="teacher-photo-ph">
+          <div class="tp-icon">👩</div>
+          <p>Фото<br>преподавателя<br><span style="color:var(--c-yellow);font-size:0.58rem;">src=&quot;файл.jpg&quot;</span></p>
+        </div>
+      </div>
+      <div>
+        <span class="sec-label reveal" style="color:var(--c-yellow);">О преподавателе</span>
+        <div class="teacher-name reveal">Маргарита Футикова</div>
+        <div class="teacher-role reveal">Опыт преподавания 4 года · Линди-хоп · Соло-джаз</div>
+        <p class="teacher-bio reveal">
+          Танцевальный опыт более 11ти лет - бальные танцы в составе ансамбля, а затем немного сальсы, линди хоп, соло джаз, немного буги вуги и снова линди хоп.
+Джаз и танцы со мной с самого детства. Отец привил любовь к музыке, бабушка активно «сдавала» непоседливого ребенка на ритмику, хореографию, бальные танцы. Был длительный перерыв, однако внутри меня танцы не прекращались:) Вернулась на паркет я 7 лет назад и больше с него не уходила. Регулярно прокачиваю свои скиллы, гоняю на фестивали, стремлюсь к обмену опытом с танцорами других смежных направлений (бальбоа, блюз, шэг). Танцую за обе роли в паре. Люблю делиться знаниями:)
+        </p>
+        <p class="teacher-sub reveal"></p>
+        <hr class="quote-divider">
+        <blockquote class="blockquote reveal">
+          Ответственнно заявляю - прогресс неизбежен, сопротивление бесполезно!
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ SCHEDULE ═══════════════════════════════════════════ -->
+<section id="schedule" class="section bg-cream">
+  <div class="container">
+    <span class="sec-label reveal">Расписание</span>
+    <h2 class="sec-title reveal">Когда<br><span style="color:var(--c-red);">танцуем</span></h2>
+    <div class="sched-wrap reveal">
+      <table class="sched-table">
+        <thead>
+          <tr><th>День</th><th>Время</th><th>Направление</th><th>Формат</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong class="dc" style="font-size:1rem;text-transform:uppercase;font-weight:900;">Понедельник</strong></td>
+            <td>[19:00 – 20:00]</td>
+            <td>Линди-хоп · Начинающие</td>
+            <td><span class="tag">Группа</span></td>
+          </tr>
+          <tr>
+            <td><strong class="dc" style="font-size:1rem;text-transform:uppercase;font-weight:900;">Понедельник</strong></td>
+            <td>[20:00 – 21:00]</td>
+            <td>Соло-джаз · Открытый уровень</td>
+            <td><span class="tag">Группа</span></td>
+          </tr>
+          <tr>
+            <td><strong class="dc" style="font-size:1rem;text-transform:uppercase;font-weight:900;">Четверг</strong></td>
+            <td>[19:00 – 20:00]</td>
+            <td>Линди-хоп · Начинающие</td>
+            <td><span class="tag">Группа</span></td>
+          </tr>
+          <tr>
+            <td><strong class="dc" style="font-size:1rem;text-transform:uppercase;font-weight:900;">Четверг</strong></td>
+            <td>[20:00 – 21:00]</td>
+            <td>Соло-джаз · Открытый уровень</td>
+            <td><span class="tag">Группа</span></td>
+          </tr>
+          <tr>
+            <td><strong class="dc" style="font-size:1rem;text-transform:uppercase;font-weight:900;">Любой день</strong></td>
+            <td>По договорённости</td>
+            <td>Любое направление</td>
+            <td><span class="tag tag-red">Индивидуально</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:1rem;font-size:0.88rem;color:#888;" class="reveal">
+      <span style="color:var(--c-red);">※</span> Актуальное расписание уточняйте в Telegram
+    </p>
+    <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-outline-red reveal" style="margin-top:1.5rem;">✈ Уточнить расписание</a>
+  </div>
+</section>
+
+
+<!-- ═══ PRICES ═════════════════════════════════════════════ -->
+<section id="prices" class="section bg-dark">
+  <div class="container">
+    <span class="sec-label reveal" style="color:var(--c-yellow);">Тарифы</span>
+    <h2 class="sec-title reveal" style="color:var(--c-cream);">Услуги<br><span style="color:var(--c-red);">и цены</span></h2>
+    <div class="price-grid">
+      <div class="price-card reveal rv-d1">
+        <div class="price-icon">🎯</div>
+        <div class="price-name">Пробное занятие</div>
+        <div class="price-desc">Приходите и попробуйте — без обязательств и давления</div>
+        <div class="price-amount">50 ₪</div>
+        <div class="price-per">разово</div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-outline-red btn-block">Написать</a>
+      </div>
+      <div class="price-card reveal rv-d2">
+        <div class="price-icon">🎟️</div>
+        <div class="price-name">Разовое посещение</div>
+        <div class="price-desc">Приходите в удобный день без привязки к абонементу</div>
+        <div class="price-amount">60 ₪</div>
+        <div class="price-per">за занятие</div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-outline-red btn-block">Написать</a>
+      </div>
+      <div class="price-card featured reveal rv-d3">
+        <div class="price-badge">Выгодно</div>
+        <div class="price-icon">⭐</div>
+        <div class="price-name">Абонемент 8 занятий</div>
+        <div class="price-desc">Лучший выбор для регулярных занятий — 50 ₪ за урок</div>
+        <div class="price-amount">400 ₪</div>
+        <div class="price-per">= 50 ₪ за занятие</div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-yellow btn-block">Написать</a>
+      </div>
+      <div class="price-card reveal rv-d4">
+        <div class="price-icon">👤</div>
+        <div class="price-name">Индивидуальное занятие</div>
+        <div class="price-desc">Личная программа, ваш темп, ваши цели</div>
+        <div class="price-amount" style="color:var(--c-red);">280 ₪</div>
+        <div class="price-per">60 минут</div>
+        <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-outline-red btn-block">Написать</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ CTA BANNER ═════════════════════════════════════════ -->
+<div class="cta-banner">
+  <p class="cta-eye">Первый шаг — самый важный</p>
+  <p class="cta-title">Начни танцевать<br>прямо сейчас</p>
+  <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-yellow" style="font-size:1.1rem;padding:1.1rem 3rem;">✈ Написать в Telegram</a>
+</div>
+
+
+<!-- ═══ CONTACTS ═══════════════════════════════════════════ -->
+<section id="contacts" class="section bg-dark">
+  <div class="container">
+    <span class="sec-label reveal" style="color:var(--c-yellow);">Найдите нас</span>
+    <h2 class="sec-title reveal" style="color:var(--c-cream);">Контакты</h2>
+    <div class="contacts-grid">
+      <div class="reveal">
+        <span class="contacts-label">Адрес</span>
+        <p class="contacts-text">Тель-Авив</p>
+        <p class="contacts-sub">ул. Бен Иуда, 53</p>
+        <span class="contacts-label">Телефон</span>
+        <!-- Замените на ваш номер -->
+        <a href="tel:+9720557724323" class="phone-link">+972 055-772-4323</a>
+      </div>
+      <div class="reveal">
+        <span class="contacts-label">Соцсети</span>
+        <div class="social-row">
+          <a href="https://t.me/mfutikova" target="_blank" class="social-link">
+            <div class="social-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.833.941z"/></svg>
+            </div>
+            <span class="social-handle">@mfutikova — Telegram</span>
+          </a>
+          <a href="https://www.instagram.com/jazzmaffin" target="_blank" class="social-link">
+            <div class="social-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </div>
+            <span class="social-handle">@jazzmaffin — Instagram</span>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61576626450583" target="_blank" class="social-link">
+            <div class="social-icon-box">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </div>
+            <span class="social-handle">MaffinJazz — Facebook</span>
+          </a>
+        </div>
+      </div>
+      <div class="reveal">
+        <span class="contacts-label">На карте</span>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.647439483644!2d34.766248177022625!3d32.078783219338725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4c7ea1910e51%3A0x5185eff501503f99!2sBen%20Yehuda%2053%2C%20Tel%20Aviv-Jaffa!5e0!3m2!1sru!2sil!4v1777459074574!5m2!1sru!2sil" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <!-- TG BTN --><a href="https://t.me/mfutikova" target="_blank" class="btn btn-red btn-block">✈ Написать в Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span class="footer-logo">Maffin<em>Jazz</em></span>
+    <span class="footer-copy">© 2025 MaffinJazz · Тель-Авив · Все права защищены</span>
+    <span class="footer-copy" style="color:#2a2a2a;">Сделано с ♥ для джаза</span>
+  </div>
+</footer>
+
+
+<!-- ═══ SCRIPTS ════════════════════════════════════════════ -->
+<script>
+  /* ── Hamburger ── */
+  var menuOpen = false;
+  var hamburger = document.getElementById('hamburger');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var hb1 = document.getElementById('hb1');
+  var hb2 = document.getElementById('hb2');
+  var hb3 = document.getElementById('hb3');
+
+  hamburger.addEventListener('click', function() {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('is-open', menuOpen);
+    hb1.style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+    hb2.style.opacity   = menuOpen ? '0' : '';
+    hb3.style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+  });
+
+  function closeMob() {
+    menuOpen = false;
+    mobileMenu.classList.remove('is-open');
+    hb1.style.transform = '';
+    hb2.style.opacity   = '';
+    hb3.style.transform = '';
+  }
+
+  /* ── Scroll reveal ── */
+  var revEls = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revEls.forEach(function(el) { io.observe(el); });
+</script>
+
+</body>
+</html>
